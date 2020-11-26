@@ -50,5 +50,5 @@ save_directory     # 各種モデルを保存するディレクトリ
 
 
 ## 参考文献
-[1] D. Mekala, V. Gupta, B. Paranjape, and H. Karnick, "SCDV: Sparse Composite Document Vectors using soft clustering over distributional representations," 2017 Conference on Empirical Methods in Natural Language Processing (EMNLP), pp. 659–669, 2017, doi: 10.18653/v1/d17-1069.
+[1] D. Mekala, V. Gupta, B. Paranjape, and H. Karnick, "SCDV: Sparse Composite Document Vectors using soft clustering over distributional representations," 2017 Conference on Empirical Methods in Natural Language Processing (EMNLP), pp. 659–669, 2017, doi: 10.18653/v1/d17-1069.  
 [2] D. Mekala, V. Gupta, B. Paranjape, "SCDV", Github, https://github.com/dheeraj7596/SCD .
