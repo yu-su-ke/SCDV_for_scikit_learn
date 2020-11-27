@@ -31,11 +31,40 @@ param_grid = {
 }
 ```
 後はその他の設定をし、学習を始める。  
-学習中に構築されたword2vecモデルや各単語のクラスタ割り当て確率を記録した辞書などは`model`ディレクトリに保存される。  
+学習中に構築されたword2vecモデルや各単語のクラスタ割り当て確率を記録した辞書などは`model`ディレクトリに保存する。  
+また、テスト時にテストテキストのワードベクトルを獲得するために使う学習時の変数を`variable.jb`としてカレントディレクトリに保存する。  
 パラメータの1つである`save_directory`で任意のディレクトリを指定可能。  
 
 
-### 3. Extra
+### 3. Test
+構築したモデルでテストを行う場合は、モデルと変数の読み込みを行う。  
+テストコードの例は以下の通り。  
+テスト時は、`train_flag=False`とすることを忘れずに。  
+```python
+import joblib
+
+import pickle
+from sklearn.metrics import classification_report
+
+from SCDV_for_scikit_learn.SCDV import SparseCompositeDocumentVector
+
+
+# モデル読み込み
+with open('任意のモデルパス', mode='rb') as fp:
+    model = pickle.load(fp)
+    model.probability = True
+# 変数読み込み
+train_variable = joblib.load('./variable.jb')
+
+scdv = SparseCompositeDocumentVector()
+train_flag = False
+gwbowv_test = scdv.transform('分かち書きしたテキストのリスト', train_flag, train_variable)
+predictions = model.predict(gwbowv_test)
+print(classification_report('正解ラベルのリスト', predictions))
+```
+
+
+### 4. Extra
 SCDV用のパラメータは以下の通り、
 ```
 num_features  # 単語次元数
