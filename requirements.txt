@@ -3,9 +3,7 @@ chardet==3.0.4
 gensim==3.8.3
 idna==2.10
 joblib==0.17.0
-mecab-python3==0.996.3
 numpy==1.19.4
-pandas==1.1.4
 python-dateutil==2.8.1
 pytz==2020.4
 requests==2.25.0
