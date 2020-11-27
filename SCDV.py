@@ -1,3 +1,4 @@
+import joblib
 import logging
 import os
 
@@ -64,9 +65,10 @@ class SparseCompositeDocumentVector(TransformerMixin, BaseEstimator):
             'word_idf_dictionary': word_idf_dictionary,
             'feature_names': feature_names
         }
+        joblib.dump(self.variable_dictionary, os.path.join(self.save_directory, 'variable.jb'), compress=3)
         return self
 
-    def transform(self, X, train_flag=True):
+    def transform(self, X, train_flag=True, train_variable=None):
         """ 引数Xに前処理を適用する
 
         Args:
@@ -77,10 +79,14 @@ class SparseCompositeDocumentVector(TransformerMixin, BaseEstimator):
             numpy.ndarray: 文書のSCDV
 
         """
-        # 前処理を適用する際に、学習しておくべきパラメータ（ここではn_features_）があるか確認
+        # 前処理を適用する際に、学習しておくべきパラメータがあるか確認
         check_is_fitted(self, 'variable_dictionary')
         # sklearnの入力の検証
         # X = check_array(X, accept_sparse=True)
+        
+        # テスト時は、変数群を引数から受け取る
+        if train_flag is False:
+            self.variable_dictionary = train_variable
 
         gwbowv = self.scdv(X, train_flag)
         return gwbowv
@@ -119,6 +125,7 @@ class SparseCompositeDocumentVector(TransformerMixin, BaseEstimator):
             'word_idf_dictionary': word_idf_dictionary,
             'feature_names': feature_names
         }
+        joblib.dump(self.variable_dictionary, os.path.join(self.save_directory, 'variable.jb'), compress=3)
         gwbowv = self.scdv(X)
         return gwbowv
 
