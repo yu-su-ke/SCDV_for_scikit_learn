@@ -83,7 +83,7 @@ class SparseCompositeDocumentVector(TransformerMixin, BaseEstimator):
         check_is_fitted(self, 'variable_dictionary')
         # sklearnの入力の検証
         # X = check_array(X, accept_sparse=True)
-        
+
         # テスト時は、変数群を引数から受け取る
         if train_flag is False:
             self.variable_dictionary = train_variable
